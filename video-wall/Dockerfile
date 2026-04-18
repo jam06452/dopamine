@@ -1,16 +1,16 @@
 # Build stage
-from oven/bun:latest as builder
+FROM oven/bun:latest as builder
 
 WORKDIR /app
 
-COPY package.json bun.lockb ./
+COPY package.json ./
 RUN bun install
 
 COPY . .
 RUN bun run build
 
 # Production stage
-from nginx:alpine
+FROM nginx:alpine
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
