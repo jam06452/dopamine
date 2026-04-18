@@ -15,7 +15,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/video-wall
+  IMAGE_NAME: brainrot
 
 jobs:
   build:

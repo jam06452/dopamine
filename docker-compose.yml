@@ -1,12 +1,6 @@
-version: '3.8'
-
-services:
-  video-wall:
-    build:
-      context: ./video-wall
-      dockerfile: Dockerfile
-    ports:
-      - "80:80"
+  brainrot:
+    container_name: brainrot
+    image: ghcr.io/${GHCR_USERNAME}/brainrot:latest
     environment:
       - NODE_ENV=production
     restart: unless-stopped
