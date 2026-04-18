@@ -11,7 +11,7 @@ export default function App() {
   return (
     <div className="h-screen w-screen bg-black p-4">
       <div className="grid grid-cols-2 grid-rows-2 h-full w-full gap-2 border-2 border-zinc-800 rounded-3xl overflow-hidden">
-        {VIDEO_CONFIG.map((url, i) => {
+        {VIDEO_CONFIG.map((url: string, i: number) => {
           const videoId = extractYouTubeId(url);
           return (
             <div key={i} className="relative w-full h-full bg-zinc-900 overflow-hidden">
