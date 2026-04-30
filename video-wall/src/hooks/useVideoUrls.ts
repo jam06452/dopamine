@@ -2,9 +2,6 @@ import { useState, useEffect } from 'react';
 import { VIDEO_CONFIG } from '../config';
 import { safeGetItem, safeSetItem } from '../utils/storage';
 
-/**
- * Custom hook to manage video URLs with localStorage persistence
- */
 export function useVideoUrls() {
   const defaultUrls = (): string[] => {
     const init = [...VIDEO_CONFIG].slice(0, 4);

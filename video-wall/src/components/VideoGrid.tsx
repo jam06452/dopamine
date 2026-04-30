@@ -9,7 +9,12 @@ export function VideoGrid({ urls, muted }: VideoGridProps) {
   return (
     <main className="quad-grid">
       {urls.map((url, index) => (
-        <VideoCard key={index} url={url} videoIndex={index} muted={muted} />
+        <VideoCard
+          key={`${index}-${url}`}
+          url={url}
+          videoIndex={index}
+          muted={muted}
+        />
       ))}
     </main>
   );

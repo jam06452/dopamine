@@ -1,16 +1,12 @@
-/* Video wall styles */
-
-/* Simple enhancements for nicer transitions and shadows */
-
 .video-card {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+
 .video-card:hover {
   transform: translateY(-4px) scale(1.01);
   box-shadow: 0 12px 30px rgba(2,6,23,0.6);
 }
 
-/* Settings button */
 .settings-btn {
   padding: 14px;
   border-radius: 9999px;
@@ -22,13 +18,77 @@
   border: 1px solid rgba(255,255,255,0.04);
   transition: transform 0.12s ease, background 0.12s ease;
 }
-.settings-btn:hover { transform: scale(1.06); background: rgba(30,41,59,0.98); }
-.settings-btn svg { width: 32px; height: 32px; }
 
-/* Dropdown / settings menu tweaks */
+.settings-btn:hover {
+  transform: scale(1.06);
+  background: rgba(30,41,59,0.98);
+}
+
+.settings-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.3);
+}
+
+.settings-btn svg {
+  width: 32px;
+  height: 32px;
+}
+
 .settings-menu {
-  background-color: #27272a !important;
+  background: linear-gradient(135deg, #27272a 0%, #1f1f23 100%);
   opacity: 1 !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.settings-header {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.settings-section {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 2px;
+  transition: background 0.2s ease;
+  overflow-x: hidden;
+}
+
+.settings-section:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.url-input {
+  width: 100%;
+  padding: 8px 10px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1.5px solid rgba(99, 102, 241, 0.2);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-family: 'Monaco', 'Courier New', monospace;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.url-input:focus {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.url-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 [aria-haspopup="true"]:focus {
@@ -39,11 +99,7 @@
 input[type="text"] {
   outline: none;
 }
-input[type="text"]:focus {
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.06);
-}
 
-/* 2x2 quadrant grid */
 .quad-grid {
   display: grid;
   gap: 0;
@@ -54,7 +110,7 @@ input[type="text"]:focus {
 
 .video-cell {
   position: relative;
-  min-height: 0; /* allow flexbox/grid children to shrink correctly */
+  min-height: 0;
   overflow: hidden;
   background: #000;
 }
@@ -68,11 +124,37 @@ input[type="text"]:focus {
   border: 0;
 }
 
-/* small overlay label (legacy; labels removed) */
 .video-label {
   display: none;
 }
 
-/* dropdown tweaks */
-.ring-1 { box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+.ring-1 {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 640px) {
+  .settings-btn {
+    padding: 10px;
+  }
+
+  .settings-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .settings-menu {
+    position: fixed !important;
+    right: 12px !important;
+    left: 12px !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: 75vh;
+    overflow-y: auto;
+  }
+
+  .quad-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
 
