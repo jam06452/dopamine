@@ -9,17 +9,26 @@ export default function App() {
   const { urls, handleUrlChange } = useVideoUrls();
   const { muted, setMuted } = useMutedState();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [fullscreenVideo, setFullscreenVideo] = useState<{ videoId: string; index: number } | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && menuOpen) {
-        setMenuOpen(false);
+      if (e.key === 'Escape') {
+        if (fullscreenVideo) {
+          setFullscreenVideo(null);
+        } else if (menuOpen) {
+          setMenuOpen(false);
+        }
+      }
+      if (e.key === 'f' && !menuOpen) {
+        e.preventDefault();
+        setFullscreenVideo(null);
       }
     };
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [menuOpen]);
+  }, [menuOpen, fullscreenVideo]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-zinc-800 text-white p-0 relative overflow-hidden">
@@ -71,7 +80,40 @@ export default function App() {
         </div>
       </div>
 
-      <VideoGrid urls={urls} muted={muted} />
+      <VideoGrid
+        urls={urls}
+        muted={muted}
+        onVideoFullscreen={(videoId, index) => setFullscreenVideo({ videoId, index })}
+      />
+
+      {fullscreenVideo && (
+        <>
+          <div
+            className="fixed inset-0 bg-black/90 z-40"
+            onClick={() => setFullscreenVideo(null)}
+          />
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <button
+              onClick={() => setFullscreenVideo(null)}
+              className="absolute top-4 right-4 text-white hover:text-zinc-300 transition text-2xl"
+              title="Exit fullscreen (ESC or F)"
+              aria-label="Exit fullscreen"
+            >
+              ✕
+            </button>
+            <div className="w-full h-full max-w-4xl max-h-[90vh]">
+              <iframe
+                className="w-full h-full rounded-lg"
+                src={`https://www.youtube.com/embed/${fullscreenVideo.videoId}?autoplay=1&mute=${muted ? 1 : 0}&loop=1&playlist=${fullscreenVideo.videoId}&controls=1&modestbranding=1`}
+                title={`Video ${fullscreenVideo.index + 1} fullscreen`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

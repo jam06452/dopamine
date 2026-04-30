@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { isValidYouTubeUrl } from '../utils/youtube';
+import { isValidYouTubeUrl, cleanYouTubeUrl } from '../utils/youtube';
 
 interface SettingsMenuProps {
   isOpen: boolean;
@@ -112,6 +112,12 @@ export function SettingsMenu({
                 type="text"
                 value={url}
                 onChange={(e) => onUrlChange(idx, e.target.value)}
+                onPaste={(e) => {
+                  e.preventDefault();
+                  const pasted = e.clipboardData?.getData('text') || '';
+                  const cleaned = cleanYouTubeUrl(pasted);
+                  onUrlChange(idx, cleaned);
+                }}
                 onKeyDown={(e) => {
                   if (e.key === 'Escape') {
                     onClose();

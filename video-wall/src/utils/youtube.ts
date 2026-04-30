@@ -8,3 +8,10 @@ export function extractYouTubeId(url: string): string | null {
 export function isValidYouTubeUrl(url: string): boolean {
   return extractYouTubeId(url) !== null;
 }
+
+export function cleanYouTubeUrl(url: string): string {
+  if (!url) return '';
+  const videoId = extractYouTubeId(url);
+  if (!videoId) return url;
+  return `https://youtu.be/${videoId}`;
+}
